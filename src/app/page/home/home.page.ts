@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Lista} from './produto.model';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { DatabaseService } from 'src/app/service/database.service';
 
 @Component({
   selector: 'app-home',
@@ -18,8 +19,9 @@ export class HomePage implements OnInit {
   constructor(private httpClient: HttpClient,
     //loadingController - Ferramenta do carregando 
     private loadCtrl: LoadingController,
-  
-    private alertCtrl: AlertController ) {}
+    private database: DatabaseService,
+    private alertCtrl: AlertController 
+    ) {}
     ngOnInit(): void {
     //Carrega o metado no inicio da pagina
     this.carregando();
@@ -45,19 +47,46 @@ export class HomePage implements OnInit {
       header: 'Cadastro de Produtos',
       inputs:[
         {
-        name: 'produto',
+        name: 'item',
         type: 'text',
         placeholder: 'Informe o Produto'
       },
       {
-        name: 'quantidade',
+        name: 'qtd',
         type: 'text',
         placeholder: 'Informe a quantidade'
       }
       ],
-      buttons:['ok']
+      buttons:[
+        //Botão cancelar
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log ('CPF CANCELADO!')
+          }
+        },
+        //Botão de cadastrar
+        {
+          text: 'Cadastrar',
+          handler: (form) => {
+            //Objeto que erá formar o nosso item da lista
+            let   item = {
+            nome: form.item,
+            quantidade: form.qtd
+          };
+            console.log (item);
+            this.database.postItem(item)
+          }
+        }
+    ]
     });
       (await alert).present();
+  }
+  //Metodo do botão excluir
+  deletar(id: number){
+    this.database.deleteItem(id);
+    location.reload();
   }
 }
 

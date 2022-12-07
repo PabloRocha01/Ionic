@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DatabaseService } from 'src/app/service/database.service';
 import { HomePage } from './home.page';
 
 const routes: Routes = [

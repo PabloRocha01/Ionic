@@ -1,26 +1,16 @@
 {
-"produto":[
+  "produto": [
     {
-        "id": 1,
-        "nome": "Feijão",
-        "quantidade": 6,
-        "preco": 12.00
-    
+      "id": 1,
+      "nome": "Feijão",
+      "quantidade": 6,
+      "preco": 12
     },
     {
-        "id": 2,
-        "nome": "Arroz",
-        "quantidade": 4,
-        "preco": 12.00
-    
-    },
-    {
-        "id": 3,
-        "nome": "Batata",
-        "quantidade": 2,
-        "preco": 12.00
-    
+      "id": 2,
+      "nome": "Arroz",
+      "quantidade": 4,
+      "preco": 12
     }
-
-]
+  ]
 }
