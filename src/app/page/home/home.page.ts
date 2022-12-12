@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Lista} from './produto.model';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/service/database.service';
+import { UtilityService } from 'src/app/service/utility.service';
 
 @Component({
   selector: 'app-home',
@@ -16,11 +17,18 @@ export class HomePage implements OnInit {
   lista: Lista[] = [];
 
   
-  constructor(private httpClient: HttpClient,
+  constructor(
+    private httpClient: HttpClient,
     //loadingController - Ferramenta do carregando 
     private loadCtrl: LoadingController,
+    //loaddingcontrollet -> Ferramenta do carregando
     private database: DatabaseService,
-    private alertCtrl: AlertController 
+    //AlertControllet -> Ferramenta que cria um alert
+    private alertCtrl: AlertController, 
+    //toastController -> Criar uma mensagem
+    private toast: ToastController,
+
+    private utilizando: UtilityService
     ) {}
     ngOnInit(): void {
     //Carrega o metado no inicio da pagina
@@ -31,13 +39,16 @@ export class HomePage implements OnInit {
 
   async carregando(){
     const load = this.loadCtrl.create({
-      mode: 'ios',
+      //mode: 'ios',
       message: 'Aguarde..',
-      duration: 2000
+      duration: 1500
     });
 
     (await load).present();
   }    
+
+  //Método do toast -> Exibe uma mensagem
+ 
 
   //Método do alertando
 
@@ -77,6 +88,8 @@ export class HomePage implements OnInit {
           };
             console.log (item);
             this.database.postItem(item)
+            this.utilizando.toastando("Item cadastrado", "bottom", "dark");
+            
           }
         }
     ]
@@ -86,7 +99,9 @@ export class HomePage implements OnInit {
   //Metodo do botão excluir
   deletar(id: number){
     this.database.deleteItem(id);
-    location.reload();
+  //Método Chama a mensagem
+    this.utilizando.toastando("Item excluído", "bottom", "danger");
+    
   }
 }
 

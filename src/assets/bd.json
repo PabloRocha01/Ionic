@@ -1,16 +1,44 @@
 {
   "produto": [
     {
-      "id": 1,
-      "nome": "Feijão",
-      "quantidade": 6,
-      "preco": 12
+      "nome": "biscoito",
+      "quantidade": "3",
+      "id": 1
     },
     {
-      "id": 2,
-      "nome": "Arroz",
-      "quantidade": 4,
-      "preco": 12
+      "nome": "biscoito",
+      "quantidade": "5",
+      "id": 2
+    },
+    {
+      "nome": "batata",
+      "quantidade": "2",
+      "id": 3
+    },
+    {
+      "nome": "alface",
+      "quantidade": "8",
+      "id": 4
+    },
+    {
+      "nome": "maça",
+      "quantidade": "17",
+      "id": 5
+    },
+    {
+      "nome": "tomate",
+      "quantidade": "4",
+      "id": 7
+    },
+    {
+      "nome": "suco",
+      "quantidade": "2",
+      "id": 8
+    },
+    {
+      "nome": "feijão ",
+      "quantidade": "3",
+      "id": 10
     }
   ]
 }
