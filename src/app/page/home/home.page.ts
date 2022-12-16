@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Lista} from './produto.model';
-import { AlertController, LoadingController, ToastController } from '@ionic/angular';
+import { ActionSheetController, AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { DatabaseService } from 'src/app/service/database.service';
 import { UtilityService } from 'src/app/service/utility.service';
 
@@ -26,15 +26,22 @@ export class HomePage implements OnInit {
     //AlertControllet -> Ferramenta que cria um alert
     private alertCtrl: AlertController, 
     //toastController -> Criar uma mensagem
-    private toast: ToastController,
+    //private toast: ToastController,
 
-    private utilizando: UtilityService
+    private utilizando: UtilityService,
+
+    private actionSheet: ActionSheetController,
+    
+
     ) {}
     ngOnInit(): void {
     //Carrega o metado no inicio da pagina
-    this.carregando();
+    this.utilizando.carregando('carregando');
 
-    this.httpClient.get<Lista[]>('http://localhost:3000/produto').subscribe(results => this.lista = results);
+    //this.httpClient.get<Lista[]>('http://localhost:3000/produto').subscribe(results => this.lista = results);
+  
+    this.database.getItem().subscribe(results => this.lista = results)
+
   }
 
   async carregando(){
@@ -88,7 +95,7 @@ export class HomePage implements OnInit {
           };
             console.log (item);
             this.database.postItem(item)
-            this.utilizando.toastando("Item cadastrado", "bottom", "dark");
+            this.utilizando.toastando("Item cadastrado", "bottom", "dark", 1500);
             
           }
         }
@@ -100,9 +107,30 @@ export class HomePage implements OnInit {
   deletar(id: number){
     this.database.deleteItem(id);
   //Método Chama a mensagem
-    this.utilizando.toastando("Item excluído", "bottom", "danger");
+    this.utilizando.toastando("Item excluído", "bottom", "danger", 1500);
     
   }
+  // método do actionsheet
+  async actionMetod(item: Lista) {
+    const action = this.actionSheet.create({
+      mode: 'ios',
+      header: 'Selecione uma opção',
+      buttons: [
+        {
+          text: item.status ? 'Desmarcar' : 'Marcar', // if ternário, feito em uma única linha
+          icon: item.status ? 'radio-button-off' : 'checkmark-circle',
+          handler: () => {
+            item.status = !item.status;
+            this.database.statusItem(item);
+          }
+        },
+        {
+          text:"Cancelar",
+          handler:() => {
+            this.utilizando.toastando('Cancelamos','middle','bottom', 1500);
+          }
+        }
+      ]
+    }); (await action).present();
 }
-
-
+  }

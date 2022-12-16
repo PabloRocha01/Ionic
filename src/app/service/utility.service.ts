@@ -14,30 +14,31 @@ export class UtilityService {
   ) { }
 
   //Método do loading
-  async carregando(menssagem: string, posicao: "top" | "middle" | "bottom", duracao: number){
+  async carregando(menssagem: string){
     const load = this.loading.create({
 
       mode: 'ios',
       message: menssagem, 
-      duration: duracao
+      duration: 1500
   
     });
 
     (await load).present();
-    location.reload();
+    //location.reload();
   }
   
-  async toastando(menssagem: string, posicao: "top" | "middle" | "bottom" , cor: string){
+  async toastando(menssagem: string, position: "top" | "middle" | "bottom" , cor: string, duration: number){
     const toastando = this.toast.create({
 
       mode: 'ios',
       message: menssagem,
-      duration: 2000,
+      duration,
+      position,
       color: cor
     });
 
     (await toastando).present();
-    location.reload();
+    //location.reload();
 
   }
 }

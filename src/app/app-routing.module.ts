@@ -20,6 +20,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'form/:id',
+    loadChildren: () => import('./page/form/form.module').then( m => m.FormPageModule)
+  },
 
   //Rotas simples
   /* {path 'inicio', component: iniciocomponente} */
