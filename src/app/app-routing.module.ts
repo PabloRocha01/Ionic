@@ -23,10 +23,9 @@ const routes: Routes = [
   {
     path: 'form/:id',
     loadChildren: () => import('./page/form/form.module').then( m => m.FormPageModule)
-  },
+  }
 
-  //Rotas simples
-  /* {path 'inicio', component: iniciocomponente} */
+ 
 ];
 
 @NgModule({

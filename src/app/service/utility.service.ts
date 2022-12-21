@@ -17,7 +17,7 @@ export class UtilityService {
   async carregando(menssagem: string){
     const load = this.loading.create({
 
-      mode: 'ios',
+     // mode: 'ios',
       message: menssagem, 
       duration: 1500
   
@@ -30,7 +30,7 @@ export class UtilityService {
   async toastando(menssagem: string, position: "top" | "middle" | "bottom" , cor: string, duration: number){
     const toastando = this.toast.create({
 
-      mode: 'ios',
+     // mode: 'ios',
       message: menssagem,
       duration,
       position,

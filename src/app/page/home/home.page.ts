@@ -14,20 +14,19 @@ import { UtilityService } from 'src/app/service/utility.service';
 
 export class HomePage implements OnInit {
 
+  image = "https://m.media-amazon.com/images/I/816DgAmbQqL.jpg"
+
   lista: Lista[] = [];
 
   
   constructor(
-    private httpClient: HttpClient,
-    //loadingController - Ferramenta do carregando 
+   
     private loadCtrl: LoadingController,
-    //loaddingcontrollet -> Ferramenta do carregando
+  
     private database: DatabaseService,
-    //AlertControllet -> Ferramenta que cria um alert
+    
     private alertCtrl: AlertController, 
-    //toastController -> Criar uma mensagem
-    //private toast: ToastController,
-
+    
     private utilizando: UtilityService,
 
     private actionSheet: ActionSheetController,
@@ -54,14 +53,14 @@ export class HomePage implements OnInit {
     (await load).present();
   }    
 
-  //Método do toast -> Exibe uma mensagem
+  
  
 
-  //Método do alertando
+  
 
   async alertando(){
     const alert = this.alertCtrl.create({
-      mode:'ios',
+     // mode:'ios',
       header: 'Cadastro de Produtos',
       inputs:[
         {
@@ -76,7 +75,7 @@ export class HomePage implements OnInit {
       }
       ],
       buttons:[
-        //Botão cancelar
+        
         {
           text: 'Cancelar',
           role: 'cancel',
@@ -84,11 +83,11 @@ export class HomePage implements OnInit {
             console.log ('CPF CANCELADO!')
           }
         },
-        //Botão de cadastrar
+        
         {
           text: 'Cadastrar',
           handler: (form) => {
-            //Objeto que erá formar o nosso item da lista
+            
             let   item = {
             nome: form.item,
             quantidade: form.qtd
@@ -103,21 +102,21 @@ export class HomePage implements OnInit {
     });
       (await alert).present();
   }
-  //Metodo do botão excluir
+  
   deletar(id: number){
     this.database.deleteItem(id);
-  //Método Chama a mensagem
+  
     this.utilizando.toastando("Item excluído", "bottom", "danger", 1500);
     
   }
-  // método do actionsheet
+
   async actionMetod(item: Lista) {
     const action = this.actionSheet.create({
-      mode: 'ios',
+      //mode: 'ios',
       header: 'Selecione uma opção',
       buttons: [
         {
-          text: item.status ? 'Desmarcar' : 'Marcar', // if ternário, feito em uma única linha
+          text: item.status ? 'Desmarcar' : 'Marcar', 
           icon: item.status ? 'radio-button-off' : 'checkmark-circle',
           handler: () => {
             item.status = !item.status;
